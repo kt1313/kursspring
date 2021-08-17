@@ -1,30 +1,46 @@
 package com.clockworkjava.kursspring.domain;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Component
+@PropertySource("classpath:castle.properties")
 public class Castle {
+    @Value("${my.castle.name:East Watch}")
+    private String name;
 
-    private String name="East Watch";
 
-    public Castle(){}
+    Knight knight;
+
+    @Autowired
+    public Castle(Knight knight) {
+        this.knight = knight;
+    }
+
+
+    Castle(Knight knight, String name){
+        this.knight=knight;
+        this.name=name;
+    }
 
     @PostConstruct
-    public void build(){
+    public void build() {
         System.out.println("Zaraz utworzymy zamek " + name);
 
     }
 
     @PreDestroy
-    public void tearDown(){
-        System.out.println("Zaraz wyburzymy zamek " +name);
+    public void tearDown() {
+        System.out.println("Zaraz wyburzymy zamek " + name);
     }
 
     @Override
     public String toString() {
-        return "Znajduje sie tu zamek o nazwie " + this.name;
+        return "Znajduje sie tu zamek o nazwie " + this.name +". "+ "Zamieszkały przez rycerza " + knight;
     }
 }
