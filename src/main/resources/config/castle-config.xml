@@ -14,7 +14,11 @@
     </bean>
 
     <bean id="tournament" class="com.clockworkjava.kursspring.domain.Tournament">
-        <property name="knight" ref="percival"/>
+        <property name="knights" >
+            <list>
+                <ref bean="percival"/>
+            </list>
+        </property>
     </bean>
 
 
