@@ -24,7 +24,6 @@ public class Knight {
 
     }
 
-    @Autowired
     public void setQuest(Quest quest) {
         System.out.println("Ustawiam zadanie dla rycerza.");
         this.quest = quest;
