@@ -9,41 +9,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
 @Repository
 public class QuestRepository {
 
-    List<Quest> questList=new ArrayList<>();
 
-    public void createQuest(String description){
+    Random rand = new Random();
+
+    List<Quest> questList = new ArrayList<>();
+
+    public void createQuest(String description) {
         questList.add(new Quest(description));
     }
 
-    public List<Quest>getAll(){
+    public List<Quest> getAll() {
         return questList;
     }
 
-    public void deleteQuest(Quest quest){
+    public void deleteQuest(Quest quest) {
         questList.remove(quest);
     }
 
-    Random rand=new Random();
-
     @PostConstruct
-    public void init(){
-
-    }
-
-    @Scheduled(fixedDelayString = "${questCreationDelay}")
-    public void createRandomQuest(){
-        List<String> descriptions=new ArrayList<>();
-        descriptions.add("Uratuj ksiezniczke. ");
-        descriptions.add("Wez udzial w turnieju. ");
-        descriptions.add("Rozpedz bande goblinow. ");
-        descriptions.add("Zabij smoka. ");
-String description=descriptions.get(rand.nextInt(descriptions.size()));
-        System.out.println("Utworzono zadanie: "+description);
-createQuest(descriptions.get(rand.nextInt(descriptions.size())));
+    public void init() {
 
     }
 
@@ -52,5 +39,19 @@ createQuest(descriptions.get(rand.nextInt(descriptions.size())));
         return "QuestRepository{" +
                 "questList=" + questList +
                 '}';
+    }
+
+    @Scheduled(fixedDelayString  = "${questCreationDelay}")
+    public void createRandomQuest() {
+        List<String> descriptions = new ArrayList<>();
+
+        descriptions.add("Uratuj ksiezniczke");
+        descriptions.add("Wez udzial w turnieju");
+        descriptions.add("Zabij bande goblinow");
+        descriptions.add("Zabij smoka");
+
+        String description = descriptions.get(rand.nextInt(descriptions.size()));
+        System.out.println("Utworzylem zdanie o opisie " + description);
+        createQuest(description);
     }
 }

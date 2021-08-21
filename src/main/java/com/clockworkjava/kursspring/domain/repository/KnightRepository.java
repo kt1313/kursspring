@@ -1,49 +1,19 @@
 package com.clockworkjava.kursspring.domain.repository;
 
 import com.clockworkjava.kursspring.domain.Knight;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
-@Repository
-public class KnightRepository {
+public interface KnightRepository {
 
-    Map<String, Knight> knights = new HashMap<>();
+    void createKnight(String name, int age);
 
-    public KnightRepository() {
+    Collection<Knight> getAllKnights();
 
-    }
+    Knight getKnight(String name);
 
-    public void createKnight(String name, int age) {
-        knights.put(name, new Knight(name, age));
-    }
+    void deleteKnight(String name);
 
-    public Collection<Knight> getAllKnights() {
-        return knights.values();
-    }
-
-    public Knight getKnight(String name) {
-        return knights.get(name);
-    }
-
-    public void deleteKnight(String name) {
-        knights.remove(name);
-    }
-
-    @PostConstruct
-    public void build() {
-        createKnight("Lancelot", 29);
-        createKnight("Percival", 25);
-    }
-
-    @Override
-    public String toString() {
-        return "KnightRepository{" +
-                "knights=" + knights +
-                '}';
-    }
+    void build();
 }

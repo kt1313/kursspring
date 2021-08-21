@@ -1,14 +1,14 @@
 package com.clockworkjava.kursspring;
 
+import com.clockworkjava.kursspring.domain.repository.InMemoryRepository;
 import com.clockworkjava.kursspring.domain.repository.KnightRepository;
 import com.clockworkjava.kursspring.domain.repository.QuestRepository;
 import com.clockworkjava.kursspring.services.QuestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
-import java.sql.SQLOutput;
 
 @Component
 @Scope("singleton")
@@ -16,7 +16,6 @@ public class Starter implements CommandLineRunner {
 
     @Autowired
     KnightRepository knightRepository;
-
 
     @Autowired
     QuestRepository questRepository;
@@ -27,20 +26,14 @@ public class Starter implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
 
+        questRepository.createRandomQuest();
+        questRepository.createRandomQuest();
+
         System.out.println(knightRepository);
-
-
-
-        questRepository.createRandomQuest();
-        System.out.println(questRepository);
-        questRepository.createRandomQuest();
-        System.out.println(questRepository);
-        questRepository.createRandomQuest();
-        System.out.println(questRepository);
 
         questService.assignRandomQuest("Lancelot");
         questService.assignRandomQuest("Percival");
 
-
     }
+
 }

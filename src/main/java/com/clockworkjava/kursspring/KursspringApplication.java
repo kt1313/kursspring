@@ -6,11 +6,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@PropertySource("classpath:KnightRepository.properties")
 @EnableScheduling
 public class KursspringApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(KursspringApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(KursspringApplication.class, args);
+	}
 }
