@@ -17,9 +17,10 @@ public class InMemoryRepository implements KnightRepository {
 
     }
 
+
     @Override
-    public void createKnight(String name, int age) {
-        knights.put(name, new Knight(name, age));
+    public void createKnight(Knight knight) {
+       knights.put(knight.getName(), knight);
     }
 
     @Override
@@ -38,11 +39,16 @@ public class InMemoryRepository implements KnightRepository {
     }
 
     @Override
-    @PostConstruct
     public void build() {
-        createKnight("Lancelot", 29);
-        createKnight("Percival", 25);
+        
     }
+
+//    @Override
+//    @PostConstruct
+//    public void build() {
+//        createKnight("Lancelot", 29);
+//        createKnight("Percival", 25);
+//    }
 
     @Override
     public String toString() {

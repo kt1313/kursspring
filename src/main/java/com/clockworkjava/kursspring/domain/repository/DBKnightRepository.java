@@ -8,10 +8,11 @@ import java.util.Collection;
 
 public class DBKnightRepository implements KnightRepository {
 
-    @Override
-    public void createKnight(String name, int age) {
 
-        System.out.println("uzywam bazy danych");
+
+    @Override
+    public void createKnight(Knight knight) {
+        System.out.println("Uzywam DB");
     }
 
     @Override

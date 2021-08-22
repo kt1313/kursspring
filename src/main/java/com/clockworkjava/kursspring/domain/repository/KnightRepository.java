@@ -7,7 +7,7 @@ import java.util.Collection;
 
 public interface KnightRepository {
 
-    void createKnight(String name, int age);
+    void createKnight(Knight knight);
 
     Collection<Knight> getAllKnights();
 
