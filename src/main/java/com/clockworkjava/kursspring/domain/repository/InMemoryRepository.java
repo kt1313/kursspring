@@ -47,7 +47,7 @@ public class InMemoryRepository implements KnightRepository {
     @Override
     public String toString() {
         return "InMemoryRepository{" +
-                "knights=" + knights +
+                "knights.html=" + knights +
                 '}';
     }
 }
