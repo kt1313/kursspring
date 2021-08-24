@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
 import java.util.Collection;
+import java.util.Optional;
 
 public class DBKnightRepository implements KnightRepository {
 
@@ -21,12 +22,12 @@ public class DBKnightRepository implements KnightRepository {
         return null;    }
 
     @Override
-    public Knight getKnight(String name) {
+    public Optional<Knight> getKnight(String name) {
         System.out.println("uzywam bazy danych");
         return null;    }
 
     @Override
-    public void deleteKnight(String name) {
+    public void deleteKnight(Integer id) {
         System.out.println("uzywam bazy danych");
     }
 
@@ -34,6 +35,12 @@ public class DBKnightRepository implements KnightRepository {
     @PostConstruct
     public void build() {
 
+    }
+
+    @Override
+    public Knight getKnightById(Integer id) {
+        System.out.println("Uzywam DB");
+    return null;
     }
 
 
