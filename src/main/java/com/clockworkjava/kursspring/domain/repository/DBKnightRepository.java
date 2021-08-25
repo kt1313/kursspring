@@ -1,6 +1,7 @@
 package com.clockworkjava.kursspring.domain.repository;
 
 import com.clockworkjava.kursspring.domain.Knight;
+import jdk.jshell.spi.ExecutionControl;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +18,11 @@ public class DBKnightRepository implements KnightRepository {
     }
 
     @Override
+    public void createKnight(String name, int age) {
+
+    }
+
+    @Override
     public Collection<Knight> getAllKnights() {
         System.out.println("uzywam bazy danych");
         return null;    }
@@ -24,7 +30,7 @@ public class DBKnightRepository implements KnightRepository {
     @Override
     public Optional<Knight> getKnight(String name) {
         System.out.println("uzywam bazy danych");
-        return null;    }
+return null;    }
 
     @Override
     public void deleteKnight(Integer id) {
