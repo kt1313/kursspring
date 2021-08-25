@@ -1,6 +1,8 @@
 package com.clockworkjava.kursspring.controllers;
 
+import com.clockworkjava.kursspring.components.TimeComponent;
 import com.clockworkjava.kursspring.domain.Knight;
+import com.clockworkjava.kursspring.domain.PlayerInformation;
 import com.clockworkjava.kursspring.services.KnightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +19,24 @@ import java.util.List;
 public class KnightController {
 
     @Autowired
+    TimeComponent timeComponent;
+
+@Autowired
+    PlayerInformation playerInformation;
+
+
+
+    @Autowired
     KnightService service;
 
     @RequestMapping("/knights")
     public String getKnight(Model model) {
         List<Knight> allKnights = service.getAllKnights();
         model.addAttribute("knights", allKnights);
+        model.addAttribute("timecomponent", timeComponent);
+        model.addAttribute("playerinformation", playerInformation);
+
+
         return "knights";
     }
 
@@ -30,13 +44,20 @@ public class KnightController {
     public String getKnight(@RequestParam("id") Integer id, Model model){
         Knight knight= service.getKnight(id);
    model.addAttribute("knight", knight);
-   return "knight";
+        model.addAttribute("timecomponent", timeComponent);
+        model.addAttribute("playerinformation", playerInformation);
+
+
+        return "knight";
     }
 
 
     @RequestMapping("/newknight")
     public String createKnight(Model model){
     model.addAttribute("knight", new Knight());
+        model.addAttribute("timecomponent", timeComponent);
+        model.addAttribute("playerinformation", playerInformation);
+
         return "knightform";
     }
 

@@ -13,8 +13,12 @@
 <form class="form-horizontal" th:object="${knight}" th:action="@{/knights}" th:method="post">
 
 <div class="container">
+    Aktualny czas <span th:text="${timecomponent.time}"/>
+    Posiadane zloto <span th:text="${playerinformation.gold}"/>
+
     <div class="form-group">
-<label class="control-label">Imie:</label>
+
+        <label class="control-label">Imie:</label>
 <input type="text" class="form-group" th:field="*{name}" />
     </div>
     <div class="form-group">
