@@ -96,6 +96,7 @@ package com.clockworkjava.kursspring.domain;
 //import org.hibernate.validator.constraints.Range;
 
 import org.hibernate.validator.constraints.Range;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -145,10 +146,7 @@ public class Knight {
         return Objects.hash(age);
     }
 
-    public void setQuest(Quest quest) {
-        System.out.println("Ustawiam zadanie dla rycerza.");
-        this.quest = quest;
-    }
+
 
     public void setAge(int age) {
         this.age = age;
@@ -182,6 +180,15 @@ public class Knight {
         this.level = level;
     }
 
+    public Quest getQuest() {
+        return quest;
+    }
+
+    public void setQuest(Quest quest) {
+        System.out.println("Ustawiam zadanie dla rycerza.");
+        quest.setStarted(true);
+        this.quest = quest;
+    }
     @Override
     public String toString() {
         return "Rycerz o imieniu " + name + "(" + age + "). Ma za zadanie: " + quest;

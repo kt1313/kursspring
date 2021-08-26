@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Knights List</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css}"/>
-<script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/jquery/3.2.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 
 </head>
@@ -15,27 +15,35 @@
     Posiadane zloto <span th:text="${playerinformation.gold}"/>
 
     <table class="table">
-    <thead>
+        <thead>
 
-    <tr><td>Imie rycerza</td>
-    <td>Poziom</td>
-<td></td>
-</tr>
-    </thead>
-<tbody th:each=" knight : ${knights}">
-<tr>
-    <td th:text="${knight.name}"></td>
-    <td th:text="${knight.level}"></td>
-    <td><a th:href="${'/knight?id'+knight.id}" >Podglad</a>a></td>
-    <td><a th:href="${'/knight/delete/'+knight.id}" >Usun</a>a></td>
+        <tr>
+            <td>Imie rycerza</td>
+            <td>Poziom</td>
+            <td>Zadania</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody th:each=" knight : ${knights}">
+        <tr>
+            <td th:text="${knight.name}"></td>
+            <td th:text="${knight.level}"></td>
+            <td>
+                <span th:if="${knight.quest==null}">Brak zadania<a th:href="${'/assignQuest?knightId'+knight.id}">Przypisz zadanie</a></span>
+                <span th:if="${knight.quest!=null}" th:text="${knight.quest.description}"/>
 
 
 
-</tr>
-</tbody>
-</table>
+            </td>
+            <td><a th:href="${'/knight?id'+knight.id}">Podglad</a></td>
+            <td><a th:href="${'/knight/delete/'+knight.id}">Usun</a></td>
+
+
+        </tr>
+        </tbody>
+    </table>
     <div class="row">
-<a href="/newknight">Utworz nowego rycerza</a>
+        <a href="/newknight">Utworz nowego rycerza</a>
     </div>
 </div>
 </body>

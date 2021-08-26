@@ -1,6 +1,7 @@
 package com.clockworkjava.kursspring.domain.repository;
 
 import com.clockworkjava.kursspring.domain.Knight;
+import com.clockworkjava.kursspring.utils.Ids;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +23,7 @@ public class InMemoryRepository implements KnightRepository {
     public void createKnight(String name, int age) {
 
         Knight newKnight = new Knight(name, age);
-        newKnight.setId(getNewId());
+        newKnight.setId(Ids.generateNewId(knights.keySet()));
         knights.put(newKnight.getId(), newKnight);
     }
 
@@ -54,7 +55,7 @@ public class InMemoryRepository implements KnightRepository {
 
     @Override
     public void createKnight(Knight knight) {
-        knight.setId(getNewId());
+        knight.setId(Ids.generateNewId(knights.keySet()));
         knights.put(knight.getId(), knight);
     }
 
@@ -70,13 +71,5 @@ public class InMemoryRepository implements KnightRepository {
                 '}';
     }
 
-    public int getNewId() {
-        if(knights.isEmpty()) {
-            return 0;
-        }
-        else {
-            Integer integer = knights.keySet().stream().max((o1, o2) -> o1.compareTo(o2)).get();
-            return integer+1;
-        }
-    }
+
 }
