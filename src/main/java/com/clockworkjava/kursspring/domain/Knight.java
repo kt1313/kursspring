@@ -95,6 +95,8 @@ package com.clockworkjava.kursspring.domain;
 
 //import org.hibernate.validator.constraints.Range;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -110,9 +112,9 @@ public class Knight {
     private String name;
 
     @NotNull
-    @Min(value = 18, message = "Wiek musi byc 18><60")
-    @Max(value = 60, message = "Wiek musi byc 18><60")
-//    @Range(min=18, max=60, message = "Rycerz musi miec conajmniej 18 lat, a nie wiecej niz 60")
+//    @Min(value = 18, message = "Wiek musi byc 18><60")
+//    @Max(value = 60, message = "Wiek musi byc 18><60")
+    @Range(min=18, max=60, message = "Rycerz musi miec conajmniej 18 lat, a nie wiecej niz 60")
     private int age;
 
 
