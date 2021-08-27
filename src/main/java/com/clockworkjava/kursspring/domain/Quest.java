@@ -63,6 +63,8 @@
 //}
 package com.clockworkjava.kursspring.domain;
 
+import java.time.LocalDateTime;
+
 public class Quest {
 
     private int id;
@@ -71,11 +73,14 @@ public class Quest {
 
     private int reward = 100;
 
-    private int lenght = 30000;
+    protected int lenghtInSeconds = 10;
 
     private boolean started = false;
 
     private boolean completed = false;
+
+    protected LocalDateTime startDate;
+
 
     public Quest(int id, String description) {
         this.id = id;
@@ -104,11 +109,11 @@ public class Quest {
     }
 
     public int getLenght() {
-        return lenght;
+        return lenghtInSeconds;
     }
 
     public void setLenght(int lenght) {
-        this.lenght = lenght;
+        this.lenghtInSeconds = lenght;
     }
 
     public boolean isStarted() {
@@ -116,16 +121,28 @@ public class Quest {
     }
 
     public void setStarted(boolean started) {
+
+        if (started) {
+            this.startDate = LocalDateTime.now();
+        }
         this.started = started;
     }
 
     public boolean isCompleted() {
-        return completed;
+
+        if (this.completed){
+            return this.completed;
+        }else {
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime questEndDate = this.startDate.plusSeconds(this.lenghtInSeconds);
+            boolean isAfter = now.isAfter(questEndDate);
+            if (isAfter) {
+                this.completed = true;
+            }
+            return isAfter;
+        }
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
 
     public int getId() {
         return id;
@@ -134,5 +151,6 @@ public class Quest {
     public void setId(int id) {
         this.id = id;
     }
+
 
 }

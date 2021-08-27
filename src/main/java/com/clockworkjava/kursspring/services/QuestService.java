@@ -80,7 +80,9 @@ public class QuestService {
     public void update(Quest quest) {
         questRepository.update(quest);
     }
-
+public boolean isQuestCompleted(Quest quest){
+        return  quest.isCompleted();
+}
 
 //    public List<Quest> getAllNotStartedQuests() {
 //        return questRepository.getAll().stream().filter(quest -> !quest.isStarted()).collect(Collectors.toList());

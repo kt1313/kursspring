@@ -1,9 +1,11 @@
 package com.clockworkjava.kursspring.controllers;
 
 import com.clockworkjava.kursspring.domain.Knight;
+import com.clockworkjava.kursspring.domain.PlayerInformation;
 import com.clockworkjava.kursspring.domain.Quest;
 import com.clockworkjava.kursspring.services.QuestService;
 import jdk.dynalink.linker.LinkerServices;
+import jdk.jshell.spi.ExecutionControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ import java.util.List;
 @Controller
 public class QuestController {
 
+    @Autowired
+    PlayerInformation playerInformation;
 
     @Autowired
     KnightService knightService;
@@ -38,12 +42,26 @@ public class QuestController {
     }
 
     @RequestMapping(value = "/assignQuest", method = RequestMethod.POST)
-    public String assignQuest(Knight knight) {
+    public String assignQuest(Knight knight) throws ExecutionControl.NotImplementedException {
         knightService.updateKnight(knight);
         Quest quest = knight.getQuest();
-questService.update(quest);
+        questService.update(quest);
         return "redirect:/knights";
 
+
+    }
+
+    @RequestMapping(value = "/checkQuests")
+    public String checkQuests() {
+
+        List<Knight> allKnights = knightService.getAllKnights();
+        allKnights.forEach(knight -> knight.getQuest().isCompleted());
+
+        int currentGold = playerInformation.getGold();
+
+        playerInformation.setGold(currentGold+knightService.collectReward());
+
+        return "redirect:/knights";
 
     }
 }
