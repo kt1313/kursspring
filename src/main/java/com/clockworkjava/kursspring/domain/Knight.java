@@ -185,6 +185,9 @@ public class Knight {
     }
 
     public void setQuest(Quest quest) {
+        if (quest!=null){
+            quest.setStarted(true);
+        }
         quest.setStarted(true);
         this.quest = quest;
     }
