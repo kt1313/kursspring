@@ -37,6 +37,7 @@
 //    }
 //}
 package com.clockworkjava.kursspring.services;
+
 import com.clockworkjava.kursspring.domain.Quest;
 import com.clockworkjava.kursspring.domain.repository.InMemoryRepository;
 import com.clockworkjava.kursspring.domain.repository.KnightRepository;
@@ -52,13 +53,14 @@ import java.util.stream.Collectors;
 @Service
 public class QuestService {
 
+
     @Autowired
     KnightRepository knightRepository;
 
 
     QuestRepository questRepository;
 
-    final static Random rand= new Random();
+    final static Random rand = new Random();
 
     public void assignRandomQuest(String knightName) {
         List<Quest> allQuests = questRepository.getAll();
@@ -75,6 +77,14 @@ public class QuestService {
         this.questRepository = questRepository;
     }
 
+    public void update(Quest quest) {
+        questRepository.update(quest);
+    }
+
+
+//    public List<Quest> getAllNotStartedQuests() {
+//        return questRepository.getAll().stream().filter(quest -> !quest.isStarted()).collect(Collectors.toList());
+//    }
 //    public void update(Quest quest) {
 //        questRepository.update(quest);
 //    }

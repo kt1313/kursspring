@@ -1,13 +1,12 @@
 package com.clockworkjava.kursspring.domain.repository;
 
 import com.clockworkjava.kursspring.domain.Quest;
+import com.clockworkjava.kursspring.utils.Ids;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Repository
 public class QuestRepository {
@@ -15,18 +14,20 @@ public class QuestRepository {
 
     Random rand = new Random();
 
-    List<Quest> questList = new ArrayList<>();
+    Map<Integer, Quest> quests= new HashMap<>();
 
     public void createQuest(String description) {
-        questList.add(new Quest(description));
+        int newId = Ids.generateNewId(quests.keySet());
+        Quest newQuest = new Quest(newId, description);
+        quests.put(newId, newQuest);
     }
 
     public List<Quest> getAll() {
-        return questList;
+        return new ArrayList<>( quests.values());
     }
 
     public void deleteQuest(Quest quest) {
-        questList.remove(quest);
+        quests.remove(quest.getId());
     }
 
     @PostConstruct
@@ -37,7 +38,7 @@ public class QuestRepository {
     @Override
     public String toString() {
         return "QuestRepository{" +
-                "questList=" + questList +
+                "quests " + quests +
                 '}';
     }
 
@@ -52,5 +53,14 @@ public class QuestRepository {
 
         String description = descriptions.get(rand.nextInt(descriptions.size()));
         createQuest(description);
+    }
+
+    public void update(Quest quest) {
+        quests.put(quest.getId(), quest);
+
+    }
+
+    public Quest getQuest(Integer id) {
+    return quests.get(id);
     }
 }
