@@ -98,14 +98,19 @@ package com.clockworkjava.kursspring.domain;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Qualifier;
 
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Objects;
 
+
+@Entity
 public class Knight {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @NotNull
@@ -121,11 +126,13 @@ public class Knight {
 
     private int level;
 
+    @OneToOne
     private Quest quest;
 
     public Knight() {
         this.level = 1;
     }
+
 
     public Knight(String name, int age) {
         this.name = name;
