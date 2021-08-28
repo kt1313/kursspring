@@ -63,15 +63,19 @@
 //}
 package com.clockworkjava.kursspring.domain;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
 public class Quest {
 
+    @Id
     private int id;
 
     private String description;
 
     private int reward = 100;
+
 
     protected int lenghtInSeconds = 10;
 
@@ -81,6 +85,9 @@ public class Quest {
 
     protected LocalDateTime startDate;
 
+    public Quest() {
+
+    }
 
     public Quest(int id, String description) {
         this.id = id;
