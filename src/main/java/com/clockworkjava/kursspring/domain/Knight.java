@@ -108,7 +108,7 @@ import java.util.Objects;
 
 @Entity
 public class Knight {
-
+//
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
