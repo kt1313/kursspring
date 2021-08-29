@@ -3,11 +3,12 @@ package com.clockworkjava.kursspring.services;
 import com.clockworkjava.kursspring.domain.Knight;
 import com.clockworkjava.kursspring.domain.PlayerInformation;
 import com.clockworkjava.kursspring.domain.repository.KnightRepository;
+import com.clockworkjava.kursspring.domain.repository.PlayerInformationRepository;
+import com.clockworkjava.kursspring.domain.repository.QuestRepository;
 import jdk.jshell.spi.ExecutionControl;
-import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +18,12 @@ import java.util.function.Predicate;
 public class KnightService {
 
     @Autowired
-    PlayerInformation playerInformation;
+    PlayerInformationRepository playerInformation;
     @Autowired
     KnightRepository knightRepository;
+
+    @Autowired
+    QuestRepository questRepository;
 
     public List<Knight> getAllKnights() {
         return new ArrayList<>(knightRepository.getAllKnights());
@@ -65,18 +69,24 @@ public class KnightService {
 
     }
 
+    @Transactional
     public void getMyGold() {
 
         List<Knight> allKnights = getAllKnights();
         allKnights.forEach(knight -> {
                     if (knight.getQuest() != null) {
-                        knight.getQuest().isCompleted();
+                        boolean completed = knight.getQuest().isCompleted();
+                    if(completed){
+                        questRepository.update(knight.getQuest());
+                    }
+
                     }
                 }
         );
-        int currentGold = playerInformation.getGold();
+        PlayerInformation first=playerInformation.getFirst();
+        int currentGold = first.getGold();
 
-        playerInformation.setGold(currentGold + collectReward());
+        playerInformation.getFirst().setGold(currentGold + collectReward());
 
     }
 

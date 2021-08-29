@@ -90,7 +90,7 @@ package com.clockworkjava.kursspring.controllers;
 import com.clockworkjava.kursspring.components.TimeComponent;
 import com.clockworkjava.kursspring.domain.Knight;
 import com.clockworkjava.kursspring.domain.PlayerInformation;
-import com.clockworkjava.kursspring.domain.repository.KnightRepository;
+import com.clockworkjava.kursspring.domain.repository.PlayerInformationRepository;
 import com.clockworkjava.kursspring.services.KnightService;
 //import com.sun.corba.se.spi.legacy.interceptor.RequestInfoExt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,7 +112,7 @@ public class KnightController {
     TimeComponent timeComponent;
 
     @Autowired
-    PlayerInformation playerInformation;
+    PlayerInformationRepository playerInformation;
 
     @Autowired
     KnightService service;
@@ -120,6 +120,8 @@ public class KnightController {
     @RequestMapping("/knights")
     public String getKnights(Model model) {
         List<Knight> allKnights = service.getAllKnights();
+        PlayerInformation pi=playerInformation.getFirst();
+
         model.addAttribute("knights", allKnights);
         model.addAttribute("timecomponent", timeComponent);
         model.addAttribute("playerinformation", playerInformation);
@@ -128,6 +130,8 @@ public class KnightController {
 
     @RequestMapping("/knight")
     public String getKnight(@RequestParam("id") Integer id, Model model) {
+       PlayerInformation pi=playerInformation.getFirst();
+
         Knight knight = service.getKnight(id);
         model.addAttribute("knight", knight);
         model.addAttribute("timecomponent", timeComponent);

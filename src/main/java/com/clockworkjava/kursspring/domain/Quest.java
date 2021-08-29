@@ -85,6 +85,9 @@ public class Quest {
 
     protected LocalDateTime startDate;
 
+    public Quest(String description) {
+
+    }
     public Quest() {
 
     }
@@ -93,6 +96,7 @@ public class Quest {
         this.id = id;
         this.description = description;
     }
+
 
     @Override
     public String toString() {
