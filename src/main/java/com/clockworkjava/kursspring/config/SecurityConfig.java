@@ -13,6 +13,8 @@ import org.springframework.boot.autoconfigure.web.servlet.WebMvcProperties;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.sql.DataSource;
+
 @Configuration
 public class SecurityConfig extends WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter {
 
@@ -20,27 +22,35 @@ public class SecurityConfig extends WebMvcAutoConfiguration.WebMvcAutoConfigurat
         super(resourceProperties, webProperties, mvcProperties, beanFactory, messageConvertersProvider, resourceHandlerRegistrationCustomizerProvider, dispatcherServletPath, servletRegistrations);
     }
 
+    @Autowired
+    DataSource dataSource;
+
     @Override
-    public void configure(HttpSecurity security) throws Exception{
+    public void configure(HttpSecurity security) throws Exception {
         security.authorizeRequest()
                 .antMatcher("/h2-console/**").permitAll()
-                .antMatcher("/knights").hasAnyRole("USER", "ADMIN")
-                .antMatcher("/knight").hasAnyRole( "ADMIN")
+                .antMatcher("/knights").hasAnyAuthority("USER", "ADMIN")
+                .antMatcher("/knight").hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().defaultSuccessUrl("/knights");
 
 
-
     }
 
     @Autowired
-    public void securityUsers(AuthenticationManagerBuilder auth){
-        auth.inMemoryAuthentication().
-                withUser("user1").password("user1").role("USER")
-                .and()
-                .withUser("user2").password("user2").role("ADMIN");
+    public void securityUsers(AuthenticationManagerBuilder auth) {
+//        auth.inMemoryAuthentication().
+//                withUser("user1").password("user1").role("USER")
+//                .and()
+//                .withUser("user2").password("user2").role("ADMIN");
+//    }
+
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .userByUsernameQuery("SELECT username, password, enabled from PLAYERINFORMATION WHERE username=?")
+                .authoritiesByUserNameQuery("SELECT username, role, enabled from ROLE WHERE username=?");
+
+
     }
-
-
 }
