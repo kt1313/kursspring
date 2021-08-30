@@ -24,11 +24,5 @@ public class MainConfig {
         return repo;
     }
 
-@Autowired
-    public void securityUsers(AuthenticationManagerBuilder auth){
-        auth.inMemoryAuthentication().
-                withUser("user1").password("user1").role("USER")
-                .and()
-                .withUser("user2").password("user2").role("ADMIN");
-}
+
 }
