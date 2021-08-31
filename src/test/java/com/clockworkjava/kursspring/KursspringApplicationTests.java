@@ -13,11 +13,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class KursspringApplicationTests {
 
-	@Autowired
-	Knight knight;
+//	@Autowired
+//	Knight knight;
 
-	@Autowired
-    InMemoryRepository inMemoryRepository;
+//	@Autowired
+//    InMemoryRepository inMemoryRepository;
 
 	@Test
 	public void contextLoads() {
